@@ -93,7 +93,7 @@ int main()
       // start up screen, while game is playing, master function
   int playingTheGame() {
     // display 'SIMON hit * to Begin' on the screen
-    //if (/* if the * key is pressed*/) {
+    if ( 0 /* if the * key is pressed*/) {
       // clear SIMON phrase
       // display round # top of screen
       // display 3 // display 2 // display 1 // clear 
@@ -102,7 +102,7 @@ int main()
           checkingOrder(); // call equals or not
         }
     } 
-
+  }
 
 
 }
