@@ -3,10 +3,10 @@
 int main()
 {
   // defining intial variables
-  char LED1; 
-  char LED2;
-  char LED3;
-  char LED4;
+  char D1; 
+  char D2;
+  char D3;
+  char D4;
   int randNum;
   int buzzer;
   int on = 1;
@@ -23,23 +23,23 @@ int main()
   int lightingButtons(randNum) { // will light and sound the LED
     for (arrayIndex = 0; arrayIndex<round+1; arrayIndex++){
       if (randNum == 1){
-        LED1 = on;
-        LED2 = LED3 = LED4 = off;
+        D1 = on;
+        D2 = D3 = D4 = off;
         buzzer = on; buzzer = off;// beep buzzer once
         // display 1 on the screen
       } else if (randNum == 2){
-        LED2 = on;
-        LED1 = LED3 = LED4 = off;
+        D2 = on;
+        D1 = D3 = D4 = off;
         buzzer = on; buzzer = off;// beep buzzer once
         // display 2 on the screen
       } else if (randNum == 3){
-        LED3 = on;
-        LED2 = LED1 = LED4 = off;
+        D3 = on;
+        D2 = D1 = D4 = off;
         buzzer = on; buzzer = off;// beep buzzer once
         // display 3 on the screen
       } else if (randNum == 4){
-        LED4 = on;
-        LED2 = LED3 = LED1 = off;
+        D4 = on;
+        D2 = D3 = D1 = off;
         buzzer = on; buzzer = off;// beep buzzer once
         // display 4 on the screen
       }
@@ -61,7 +61,8 @@ int main()
   int playingTheGame() {
     // display 'SIMON hit * to Begin' on the screen
     // clear userArray
-    round = 1; // reset round back to 1
+    round = 0; // reset round 
+    round = round++; 
     //if (/* if the * key is pressed*/) {
       // clear SIMON phrase
       // display round #
