@@ -83,7 +83,7 @@ int main()
         // display 'Game Over Hit '0' to Restart' on screen
         round = 1;
         buzzer = off; 
-        if (/* 0 button is hit */) {
+        if (0/* 0 button is hit */) {
            // go to default screen with Simon * to begin
         }
       } userArray[arrayIndex] = 0; 
@@ -102,7 +102,6 @@ int main()
           checkingOrder(); // call equals or not
         }
     } 
-  }
 
 
 
