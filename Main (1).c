@@ -8,6 +8,7 @@ int main()
   int D3;
   int D4;
   int randNum;
+  int counterShow;
   int buzzer;
   int on = 1;
   int off = 0;
@@ -53,18 +54,20 @@ int main()
           randNum = (rand() % 4) + 1 ;
           printf("%d \n", randNum);
           //patternArray[i] = randNum;
-          lightingButtons(randNum);
       }
   } 
   
   // collecting user data
-  collectingPress () {
-     //
+  int collectingPress () {
+      for (counterShow = 0; counterShow < round; counterShow++) { 
+      // display patternArray up to this number to user
+      // append each button press into userArray
+      }
   }
 
 
 
-       // if else to see if pattern and user arrays are the same
+  // if else to see if pattern and user arrays are the same
   int checkingOrder() { // function called checkingOrder
     for(arrayIndex = 0; arrayIndex<round+1; arrayIndex++){
       if (patternArray[arrayIndex] == userArray[arrayIndex]){ // if arrays equal
@@ -92,7 +95,7 @@ int main()
       // display round # top of screen
       // count down 3 2 1 middle screen then clear 
         while(1) {
-          randomLEDSeq(); // display pattern to user 
+          // randomLEDSeq(); // display pattern to user 
           collectingPress(); // collect user data 
           checkingOrder(); // call equals or not
         }
