@@ -52,16 +52,19 @@ int main()
   int randomLEDSeq () {
       for (int i = 0; i<sequenceMax; i++){
           randNum = (rand() % 4) + 1 ;
-          printf("%d \n", randNum);
+          printf("%d \n", randNum);// checking for me
           //patternArray[i] = randNum;
+          if(i < round) {
+             // display lightingButtons(randNum)
+          }
       }
   } 
   
   // collecting user data
   int collectingPress () {
       for (counterShow = 0; counterShow < round; counterShow++) { 
-      // display patternArray up to round to user
-      // append each button press into userArray
+          randomLEDSeq(); // display patternArray up to round to user
+          // append each button press into userArray
       }
   }
 
@@ -83,7 +86,7 @@ int main()
         if (/* 0 button is hit */) {
            // go to default screen with Simon * to begin
         }
-      }
+      } userArray[arrayIndex] = 0; 
     }
   }
   
@@ -93,9 +96,8 @@ int main()
     //if (/* if the * key is pressed*/) {
       // clear SIMON phrase
       // display round # top of screen
-      // count down 3 2 1 middle screen then clear 
-        while(1) {
-          // randomLEDSeq(); // display pattern to user 
+      // display 3 // display 2 // display 1 // clear 
+        while(1) { 
           collectingPress(); // collect user data 
           checkingOrder(); // call equals or not
         }
