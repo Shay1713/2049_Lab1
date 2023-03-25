@@ -57,7 +57,13 @@ int main()
       }
   } 
   
-  
+  // collecting user data
+  collectingPress () {
+     //
+  }
+
+
+
        // if else to see if pattern and user arrays are the same
   int checkingOrder() { // function called checkingOrder
     for(arrayIndex = 0; arrayIndex<round+1; arrayIndex++){
@@ -83,7 +89,8 @@ int main()
     // display 'SIMON hit * to Begin' on the screen
     //if (/* if the * key is pressed*/) {
       // clear SIMON phrase
-      // display round #
+      // display round # top of screen
+      // count down 3 2 1 middle screen then clear 
         while(1) {
           // display pattern to user 
           // collect user data 
