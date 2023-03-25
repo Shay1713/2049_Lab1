@@ -93,8 +93,8 @@ int main()
       // count down 3 2 1 middle screen then clear 
         while(1) {
           // display pattern to user 
-          // collect user data 
-          checkingOrder (); // call equals or not
+          collectingPress(); // collect user data 
+          checkingOrder(); // call equals or not
         }
     } 
   }
