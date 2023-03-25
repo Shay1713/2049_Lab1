@@ -62,11 +62,11 @@ int main()
     // display 'SIMON hit * to Begin' on the screen
     // clear userArray
     round = 0; // reset round 
-    round = round++; 
     //if (/* if the * key is pressed*/) {
       // clear SIMON phrase
       // display round #
         while(1) {
+          round = round++; // increments round 
           // 
           // 
         }
