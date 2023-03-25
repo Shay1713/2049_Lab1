@@ -60,7 +60,7 @@ int main()
   // collecting user data
   int collectingPress () {
       for (counterShow = 0; counterShow < round; counterShow++) { 
-      // display patternArray up to this number to user
+      // display patternArray up to round to user
       // append each button press into userArray
       }
   }
