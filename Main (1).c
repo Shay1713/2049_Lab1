@@ -3,10 +3,10 @@
 int main()
 {
   // defining intial variables
-  char D1; 
-  char D2;
-  char D3;
-  char D4;
+  int D1; 
+  int D2;
+  int D3;
+  int D4;
   int randNum;
   int buzzer;
   int on = 1;
