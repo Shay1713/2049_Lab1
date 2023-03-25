@@ -12,7 +12,7 @@ int main()
   int buzzer;
   int on = 1;
   int off = 0;
-  int round = 0; // how long the game 
+  int round; // how long the game 
   int arrayIndex; // the position in each array
   int sequenceMax = 40;
   int patternArray[] = {};
