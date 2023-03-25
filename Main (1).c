@@ -48,12 +48,13 @@ int main()
   
     
   // random defining LED characters to their decimal values
-  for (int i = 0; i<sequenceMax; i++){
-    randNum = (rand() % 4) + 1 ;
-    printf("%d \n", randNum);
-    //patternArray[i] = randNum;
-    lightingButtons(randNum);
-    
+  int randomLEDSeq () {
+      for (int i = 0; i<sequenceMax; i++){
+          randNum = (rand() % 4) + 1 ;
+          printf("%d \n", randNum);
+          //patternArray[i] = randNum;
+          lightingButtons(randNum);
+      }
   } 
   
   
