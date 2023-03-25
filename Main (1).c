@@ -92,7 +92,7 @@ int main()
       // display round # top of screen
       // count down 3 2 1 middle screen then clear 
         while(1) {
-          // display pattern to user 
+          randomLEDSeq(); // display pattern to user 
           collectingPress(); // collect user data 
           checkingOrder(); // call equals or not
         }
