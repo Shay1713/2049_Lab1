@@ -58,38 +58,40 @@ int main()
   } 
   
   
-    // start up screen, while game is playing, master function
-  int playingTheGame() {
-    // display 'SIMON hit * to Begin' on the screen
-    // clear userArray
-    round = 0; // reset round 
-    //if (/* if the * key is pressed*/) {
-      // clear SIMON phrase
-      // display round #
-        while(1) {
-          round = round++; // increments round 
-          // 
-          // 
-        }
-    //} 
-  }
-  
-  
        // if else to see if pattern and user arrays are the same
   int checkingOrder() { // function called checkingOrder
     for(arrayIndex = 0; arrayIndex<round+1; arrayIndex++){
       if (patternArray[arrayIndex] == userArray[arrayIndex]){ // if arrays equal
-        userArray[arrayIndex] = 0;
+        // for loop to set userArray[arrayIndex] = 0;
+        // increment capacity size of pattern array pattern shown 
         round++;
-        // prompt playing another round
+        // play another round
       } else { // if arrays not equal
         buzzer = on; // sound buzzer
         // display 'Game Over Hit '0' to Restart' on screen
+        round = 1;
         buzzer = off; 
-        playingTheGame(); // call playingTheGame function
+        if (/* 0 button is hit */) {
+           // go to default screen with Simon * to begin
+        }
       }
     }
   }
   
-  
+      // start up screen, while game is playing, master function
+  int playingTheGame() {
+    // display 'SIMON hit * to Begin' on the screen
+    //if (/* if the * key is pressed*/) {
+      // clear SIMON phrase
+      // display round #
+        while(1) {
+          // display pattern to user 
+          // collect user data 
+          checkingOrder (); // call equals or not
+        }
+    } 
+  }
+
+
+
 }
