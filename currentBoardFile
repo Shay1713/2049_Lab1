@@ -66,7 +66,7 @@ void main(void)
 
         while (1)    // Forever loop
            {
-               checkingOrder();
+               //checkingOrder();
                //buttonCollection(sequenceMax);
 
 
@@ -276,7 +276,8 @@ void buttonCollection(sequenceMax){
 
 
 void checkingOrder() // checking to see if the pattern and user arrays ==
-{
+{ Graphics_drawStringCentered(&g_sContext, "Checking...", AUTO_STRING_LENGTH, 48, 80, TRANSPARENT_TEXT);
+  Graphics_flushBuffer(&g_sContext);
     for(arrayIndex = 0; arrayIndex<sequenceMax); arrayIndex++){
       if (patternArray[arrayIndex] == userArray[arrayIndex]){ // if arrays equal
           for(arrayIndex = 0; arrayIndex<sequenceMax); arrayIndex++)
@@ -300,4 +301,6 @@ void checkingOrder() // checking to see if the pattern and user arrays ==
 
       }
     }
+ Graphics_clearDisplay(&g_sContext); 
+ Graphics_flushBuffer(&g_sContext);
  }
