@@ -20,7 +20,8 @@ void main(void)
 {
     int round; // how long the game 
     int arrayIndex; // the position in each array
-    int sequenceMax = 35; // max game length
+    int sequenceMax; // max game length
+    int numMax; // random limit in nums to pick
     int patternArray[] = {}; // random led pattern 
     int userArray[] = {}; saves user press button data
 
@@ -49,8 +50,17 @@ void main(void)
     dispThree[2] = ' ';
 
 
-        while (1)    // Forever loop
-           {
+    sequenceMax = 1; // generating pattern array
+    numMax = 4;
+    char alphabet[numMax] = { '1', '2', '3', '4');
+    for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++)  
+        userArray[sequenceMax] = alphabet[rand() % numMax];
+    sequenceMax++;
+
+
+        
+     while (1)    // Forever loop
+     {
                // Check if any keys have been pressed on the 3x4 keypad
                currKey = getKey();
                if (currKey == '8') // restart game & rounds
@@ -98,7 +108,7 @@ void main(void)
 
                }
 
-           }  // end while (1)
+      }  // end while (1)
 
 
 }
@@ -106,8 +116,8 @@ void main(void)
 
 void swDelay(char numLoops)
 {
-	// This function is a software delay.
-	// Input: numLoops = number of delay loops to execute Output: none
+	//  function is a software delay
+	// Input: numLoops = number of delay loops to execute 
 
 	volatile unsigned int i,j;	// volatile to prevent removal in optimization
 	                            // by compiler. Functionally this is useless 
