@@ -17,6 +17,7 @@
 // Declare globals here
 
 int round; // how long the game
+int randomNum;
 int numMax = 4;
 int arrayIndex; // the position in each array
 int sequenceMax; // max game length
@@ -178,13 +179,14 @@ void swDelay(char numLoops)
 
 
 void incPatternDisp () //generating pattern array
-{
-    char alphabet[] = {'1', '2', '3', '4'};
+{   currKey = getKey();
     for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
-        userArray[arrayIndex] = alphabet[rand() % numMax];
-        if (arrayIndex == '1'){
+        randomNum = [(rand() % 4) +1];
+        if (randomNum == 1){
+            currKey = '1';
+            userArray[arrayIndex] = currKey;
             Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
-            setLeds(arrayIndex - 0x30);
+            setLeds(currKey - 0x30);
             Graphics_flushBuffer(&g_sContext);
             BuzzerOn();
             swDelay(1);
@@ -192,27 +194,33 @@ void incPatternDisp () //generating pattern array
             setLeds(0);
             Graphics_clearDisplay(&g_sContext);
         }
-        if (arrayIndex == '2'){
+        if (randomNum == 2){
+            currKey = '2'; 
+            userArray[arrayIndex] = currKey;
             Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
-            setLeds(arrayIndex - 0x30);
+            setLeds(currKey - 0x30);
             Graphics_flushBuffer(&g_sContext);
             BuzzerOn();
             swDelay(1);
             BuzzerOff();
             setLeds(0);
         }
-        if (arrayIndex == '3'){
+        if (randomNum == 3){
+            currKey = '3';
+            userArray[arrayIndex] = currKey;
             Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
-            setLeds(arrayIndex - 0x30);
+            setLeds(currKey - 0x30);
             Graphics_flushBuffer(&g_sContext);
             BuzzerOn();
             swDelay(1);
             BuzzerOff();
             setLeds(0);
         }
-        if (arrayIndex == '4'){
+        if (randomNum == 4){
+            currKey = '4';
+            userArray[arrayIndex] = currKey;
             Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
-            setLeds(arrayIndex - 0x30);
+            setLeds(currKey - 0x30);
             Graphics_flushBuffer(&g_sContext);
             BuzzerOn();
             swDelay(1);
@@ -269,9 +277,9 @@ void buttonCollection(sequenceMax){
 
 void checkingOrder() // checking to see if the pattern and user arrays ==
 {
-    for(arrayIndex = 0; arrayIndex<(sizeof(userArray)/sizeof(userArray[0])); arrayIndex++){
+    for(arrayIndex = 0; arrayIndex<sequenceMax); arrayIndex++){
       if (patternArray[arrayIndex] == userArray[arrayIndex]){ // if arrays equal
-          for(arrayIndex = 0; arrayIndex<(sizeof(userArray)/sizeof(userArray[0])); arrayIndex++)
+          for(arrayIndex = 0; arrayIndex<sequenceMax); arrayIndex++)
               userArray[arrayIndex] = 0; // clearing user button input array
           round++;
           sequenceMax++;
@@ -283,9 +291,9 @@ void checkingOrder() // checking to see if the pattern and user arrays ==
         Graphics_drawStringCentered(&g_sContext, "Play Again", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
         BuzzerOff();
-        for(arrayIndex = 0; arrayIndex<(sizeof(userArray)/sizeof(userArray[0])); arrayIndex++)
+        for(arrayIndex = 0; arrayIndex<sequenceMax; arrayIndex++)
             userArray[arrayIndex] = 0; // clearing user button input array
-        for(arrayIndex = 0; arrayIndex<(sizeof(patternArray)/sizeof(patternArray[0])); arrayIndex++)
+        for(arrayIndex = 0; arrayIndex<sequenceMax; arrayIndex++)
             patternArray[arrayIndex] = 0; // clearing pattern display array
         round = 1;
         sequenceMax = 1;
