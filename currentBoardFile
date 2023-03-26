@@ -100,10 +100,8 @@ void swDelay(char numLoops)
 	// Input: numLoops = number of delay loops to execute Output: none
 
 	volatile unsigned int i,j;	// volatile to prevent removal in optimization
-	                            // by compiler. Functionally this is useless code
-	//int speed = 0;
-	//speed = speed +100;
-    //i = i-speed
+	                            // by compiler. Functionally this is useless 
+
 	for (j=0; j<numLoops; j++)
     {
 	    i = 50000 ;			// SW Delay
