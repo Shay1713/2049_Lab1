@@ -1,0 +1,113 @@
+/************** ECE2049 DEMO CODE ******************/
+/**************  13 March 2019   ******************/
+/***************************************************/
+
+#include <msp430.h>
+
+/* Peripherals.c and .h are where the functions that implement
+ * the LEDs and keypad, etc are. It is often useful to organize
+ * your code by putting like functions together in files.
+ * You include the header associated with that file(s)
+ * into the main file of your project. */
+#include "peripherals.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function Prototypes
+void swDelay(char numLoops);
+
+// Declare globals here
+
+
+
+
+// Main
+void main(void)
+
+{
+
+    unsigned char currKey=0, dispSz = 3;
+    unsigned char dispThree[3];
+    //unsigned char your_name[14] = "Max \n Shay";
+
+    // Useful code starts here
+
+    WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
+
+
+    initLeds();
+    configDisplay();
+    configKeypad();
+
+    // *** Intro Screen ***
+    Graphics_clearDisplay(&g_sContext); // Clear the display
+    Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
+    Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
+    Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT);
+
+    //Graphics_Rectangle box = {.xMin = 5, .xMax = 91, .yMin = 5, .yMax = 91 };
+    //Graphics_drawRectangle(&g_sContext, &box);
+
+    Graphics_flushBuffer(&g_sContext);
+    dispThree[0] = ' ';
+    dispThree[2] = ' ';
+
+
+        while (1)    // Forever loop
+           {
+               // Check if any keys have been pressed on the 3x4 keypad
+               currKey = getKey();
+               if (currKey == '*')
+                   BuzzerOff(); // play pattern sequence
+               //if ((currKey >= '1') && (currKey <= '4'))
+                   //setLeds(currKey - 0x30);
+               if (currKey == '1')
+                   Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
+                   setLeds(currKey - 0x30);
+               if (currKey == '2')
+                  Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
+                  setLeds(currKey - 0x30);
+               if (currKey == '3')
+                   Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
+                   setLeds(currKey - 0x30);
+               if (currKey == '4')
+                   Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
+                   setLeds(currKey - 0x30);
+               if (currKey)
+               {
+                   dispThree[1] = currKey;
+
+                   // Refresh the display so it shows the new data
+                   Graphics_flushBuffer(&g_sContext);
+
+                   BuzzerOn();
+                   swDelay(1);
+                   BuzzerOff();
+                   setLeds(0);
+                   Graphics_clearDisplay(&g_sContext); // Clear the display
+
+               }
+
+           }  // end while (1)
+
+
+}
+
+
+void swDelay(char numLoops)
+{
+	// This function is a software delay.
+	// Input: numLoops = number of delay loops to execute Output: none
+
+	volatile unsigned int i,j;	// volatile to prevent removal in optimization
+	                            // by compiler. Functionally this is useless code
+	//int speed = 0;
+	//speed = speed +100;
+    //i = i-speed
+	for (j=0; j<numLoops; j++)
+    {
+	    i = 50000 ;			// SW Delay
+   	    while (i > 0)				// could also have used while (i)
+	       i--;
+    }
+}
