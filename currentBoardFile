@@ -13,22 +13,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Function Prototypes
-void swDelay(char numLoops);
-void incPatternDisp ();
-void checkingOrder();
 
 // Declare globals here
 
 int round; // how long the game
 int numMax = 4;
 int arrayIndex; // the position in each array
-int sequenceMax = 1; // max game length
-int patternArray[] = {}; // random led pattern
-int userArray[] = {}; //saves user press button data
+int sequenceMax; // max game length
+unsigned int patternArray[] = {}; // random led pattern
+unsigned int userArray[] = {}; //saves user press button data
 unsigned char currKey=0, dispSz = 3;
 unsigned char dispThree[3];
 int c = 0;
+
+
+// Function Prototypes
+void swDelay(char numLoops);
+void incPatternDisp ();
+void checkingOrder();
+void buttonCollection(sequenceMax);
 
 
 // Main
@@ -62,6 +65,8 @@ void main(void)
 
         while (1)    // Forever loop
            {
+               checkingOrder();
+               //buttonCollection(sequenceMax);
 
 
                // Check if any keys have been pressed on the 3x4 keypad
@@ -92,36 +97,41 @@ void main(void)
                    BuzzerOff();
                    swDelay(2);
                    (currKey = '*');
+                   sequenceMax = 1;
+                   round = 1;
+
                }
-               if (currKey == '1')
+               /*if (currKey == '1')
                    setLeds(currKey - 0x30);
                if (currKey == '2')
                   setLeds(currKey - 0x30);
                if (currKey == '3')
                    setLeds(currKey - 0x30);
                if (currKey == '4')
+                   setLeds(currKey - 0x30);*/
+               if (currKey == '9'){
                    setLeds(currKey - 0x30);
-               if (currKey == '9')
-                   setLeds(currKey - 0x30);
-                   sequenceMax = 1;
-
+                   Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
+                   Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT);
+                   Graphics_flushBuffer(&g_sContext);
+                   swDelay(7);
+               }
                if (currKey)
                {
                    dispThree[1] = currKey;
-                   if ((currKey >= '5') && (currKey <= '8'))
+                   if ((currKey >= '5') && (currKey <= '9'))
                        setLeds(0);
-                   if (currKey == '1')
+                   /*if (currKey == '1')
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
                    if (currKey == '2')
                       Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
                    if (currKey == '3')
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
                    if (currKey == '4')
-                       Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
-                   if (currKey == '9')
-                       Graphics_drawStringCentered(&g_sContext, "Start Press '9'", AUTO_STRING_LENGTH, 48, 45, TRANSPARENT_TEXT);
+                       Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);*/
                    if (currKey == '*'){
-                       Graphics_drawStringCentered(&g_sContext, "GO", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);}
+                       Graphics_drawStringCentered(&g_sContext, "GO", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);
+                       setLeds(currKey-0x30);}
 
 
 
@@ -144,6 +154,8 @@ void main(void)
            }  // end while (1)
 
 
+
+
 }
 
 
@@ -155,7 +167,6 @@ void swDelay(char numLoops)
 	                            // by compiler. Functionally this is useless code
 	//int speed = 0;
 	//speed = speed +100;
-    //i = i-speed
 	for (j=0; j<numLoops; j++)
     {
 	    i = 50000 ;			// SW Delay
@@ -164,30 +175,121 @@ void swDelay(char numLoops)
     }
 }
 
+
+
 void incPatternDisp () //generating pattern array
 {
     char alphabet[] = {'1', '2', '3', '4'};
-    for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++)
+    for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
         userArray[arrayIndex] = alphabet[rand() % numMax];
-    sequenceMax++; // limiting how long the sequence is played, increments each winning round
+        if (arrayIndex == '1'){
+            Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
+            setLeds(arrayIndex - 0x30);
+            Graphics_flushBuffer(&g_sContext);
+            BuzzerOn();
+            swDelay(1);
+            BuzzerOff();
+            setLeds(0);
+            Graphics_clearDisplay(&g_sContext);
+        }
+        if (arrayIndex == '2'){
+            Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
+            setLeds(arrayIndex - 0x30);
+            Graphics_flushBuffer(&g_sContext);
+            BuzzerOn();
+            swDelay(1);
+            BuzzerOff();
+            setLeds(0);
+        }
+        if (arrayIndex == '3'){
+            Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
+            setLeds(arrayIndex - 0x30);
+            Graphics_flushBuffer(&g_sContext);
+            BuzzerOn();
+            swDelay(1);
+            BuzzerOff();
+            setLeds(0);
+        }
+        if (arrayIndex == '4'){
+            Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
+            setLeds(arrayIndex - 0x30);
+            Graphics_flushBuffer(&g_sContext);
+            BuzzerOn();
+            swDelay(1);
+            BuzzerOff();
+            setLeds(0);
+        }
+    }
+
 }
+
+
+void buttonCollection(sequenceMax){
+    Graphics_clearDisplay(&g_sContext);
+    Graphics_drawStringCentered(&g_sContext, "Try To Repeat", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
+    Graphics_flushBuffer(&g_sContext);
+    for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
+        currKey = getKey();
+        if (currKey == '1')
+            setLeds(currKey - 0x30);
+            userArray[arrayIndex] = '1';
+        if (currKey == '2')
+            setLeds(currKey - 0x30);
+            userArray[arrayIndex] = '2';
+        if (currKey == '3')
+            setLeds(currKey - 0x30);
+            userArray[arrayIndex] = '3';
+        if (currKey == '4')
+            setLeds(currKey - 0x30);
+            userArray[arrayIndex] = '4';
+        if (currKey)
+        {
+            dispThree[1] = currKey;
+            if (currKey == '1')
+                Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
+            if (currKey == '2')
+                Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
+            if (currKey == '3')
+                Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
+            if (currKey == '4')
+                Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
+        }
+        // Refresh the display so it shows the new data
+        Graphics_flushBuffer(&g_sContext);
+        BuzzerOn();
+        swDelay(1);
+        BuzzerOff();
+        setLeds(0);
+        Graphics_clearDisplay(&g_sContext); // Clear the display
+        Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
+        Graphics_flushBuffer(&g_sContext);
+    }
+}
+
 
 void checkingOrder() // checking to see if the pattern and user arrays ==
 {
-    for(arrayIndex = 0; arrayIndex<round+1; arrayIndex++){
+    for(arrayIndex = 0; arrayIndex<(sizeof(userArray)/sizeof(userArray[0])); arrayIndex++){
       if (patternArray[arrayIndex] == userArray[arrayIndex]){ // if arrays equal
-          for(arrayIndex = 0; arrayIndex<round+1; arrayIndex++)
+          for(arrayIndex = 0; arrayIndex<(sizeof(userArray)/sizeof(userArray[0])); arrayIndex++)
               userArray[arrayIndex] = 0; // clearing user button input array
-          incPatternDisp (); // increasing pattern shown by 1
           round++;
-          // instantly play another round & show round number
+          sequenceMax++;
+          incPatternDisp (); // playing another round
      } else { // if arrays not equal
         BuzzerOn();
         Graphics_drawStringCentered(&g_sContext, "Game Over", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
         Graphics_drawStringCentered(&g_sContext, "Press 9 To", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
         Graphics_drawStringCentered(&g_sContext, "Play Again", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
-        round = 1;
+        Graphics_flushBuffer(&g_sContext);
         BuzzerOff();
+        for(arrayIndex = 0; arrayIndex<(sizeof(userArray)/sizeof(userArray[0])); arrayIndex++)
+            userArray[arrayIndex] = 0; // clearing user button input array
+        for(arrayIndex = 0; arrayIndex<(sizeof(patternArray)/sizeof(patternArray[0])); arrayIndex++)
+            patternArray[arrayIndex] = 0; // clearing pattern display array
+        round = 1;
+        sequenceMax = 1;
+
       }
     }
  }
