@@ -184,7 +184,7 @@ void incPatternDisp () //generating pattern array
         randomNum = [(rand() % 4) +1];
         if (randomNum == 1){
             currKey = '1';
-            userArray[arrayIndex] = currKey;
+            patternArray[arrayIndex] = currKey;
             Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
             setLeds(currKey - 0x30);
             Graphics_flushBuffer(&g_sContext);
@@ -196,7 +196,7 @@ void incPatternDisp () //generating pattern array
         }
         if (randomNum == 2){
             currKey = '2'; 
-            userArray[arrayIndex] = currKey;
+            patternArray[arrayIndex] = currKey;
             Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
             setLeds(currKey - 0x30);
             Graphics_flushBuffer(&g_sContext);
@@ -207,7 +207,7 @@ void incPatternDisp () //generating pattern array
         }
         if (randomNum == 3){
             currKey = '3';
-            userArray[arrayIndex] = currKey;
+            patternArray[arrayIndex] = currKey;
             Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
             setLeds(currKey - 0x30);
             Graphics_flushBuffer(&g_sContext);
@@ -218,7 +218,7 @@ void incPatternDisp () //generating pattern array
         }
         if (randomNum == 4){
             currKey = '4';
-            userArray[arrayIndex] = currKey;
+            patternArray[arrayIndex] = currKey;
             Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
             setLeds(currKey - 0x30);
             Graphics_flushBuffer(&g_sContext);
