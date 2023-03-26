@@ -9,6 +9,8 @@
 
 // Function Prototypes
 void swDelay(char numLoops);
+// void incPatternDisp ();
+// void checkingOrder();
 
 // Declare globals here
 
@@ -48,15 +50,6 @@ void main(void)
     Graphics_flushBuffer(&g_sContext);
     dispThree[0] = ' ';
     dispThree[2] = ' ';
-
-
-    sequenceMax = 1; // generating pattern array
-    numMax = 4;
-    char alphabet[numMax] = { '1', '2', '3', '4');
-    for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++)  
-        userArray[sequenceMax] = alphabet[rand() % numMax];
-    sequenceMax++;
-
 
         
      while (1)    // Forever loop
@@ -129,3 +122,42 @@ void swDelay(char numLoops)
 	       i--;
     }
 }
+
+
+
+//void incPatternDisp () //generating pattern array
+//{
+    //sequenceMax = 1; // put with top vars
+    //numMax = 4; // put with top vats 
+    //char alphabet[numMax] = { '1', '2', '3', '4');
+    //for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++)  
+        //userArray[arrayIndex] = alphabet[rand() % numMax];
+    //sequenceMax++;
+//}
+
+//void checkingOrder() 
+//{ // function called checkingOrder
+    //for(arrayIndex = 0; arrayIndex<round+1; arrayIndex++){
+      //if (patternArray[arrayIndex] == userArray[arrayIndex]){ // if arrays equal
+        // for loop to set userArray[arrayIndex] = 0;
+        // increment capacity size of pattern array pattern shown 
+        //round++;
+        // play another round
+      //} else { // if arrays not equal
+        //buzzer = on; // sound buzzer
+        // display 'Game Over Hit '0' to Restart' on screen
+        //round = 1;
+        //buzzer = off; 
+        //if (0/* 0 button is hit */) {
+           // go to default screen with Simon * to begin
+        //}
+      //} userArray[arrayIndex] = 0; 
+    //}
+ //}
+
+
+
+
+
+
+
