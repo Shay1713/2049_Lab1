@@ -94,14 +94,20 @@ void main(void)
                    BuzzerOff();
                    swDelay(2);
                    (currKey = '*');
-                   sequenceMax = 1;
-                   round = 1;
-                   Graphics_clearDisplay(&g_sContext); // preparing to prompt the user
+                   setLeds(currKey-0x30);
+                   BuzzerOn();
+                   Graphics_drawStringCentered(&g_sContext, "GO", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
-                   incPatternDisp();
+                   swDelay(2);
+                   BuzzerOff();
+                   swDelay(2);
+
+                   Graphics_clearDisplay(&g_sContext); // preparing to prompt the user
+                   Graphics_flushBuffer(&g_sContext); // refreshing screen
+                   incPatternDisp(); // displaying pattern to user
                    Graphics_clearDisplay(&g_sContext); // clearing pattern numbers
                    Graphics_drawStringCentered(&g_sContext, "Repeat", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT); // instructing player
-                   Graphics_flushBuffer(&g_sContext);
+                   Graphics_flushBuffer(&g_sContext); /// refreshing screen
 
 
                }
@@ -115,9 +121,10 @@ void main(void)
                    setLeds(currKey - 0x30);
                if (currKey == '9'){
                    setLeds(currKey - 0x30);
-                   Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
+                   Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT); // restarting game
                    Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
+                   sequenceMax = 1;
                    swDelay(7);
                }
                if (currKey)
@@ -133,9 +140,7 @@ void main(void)
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
                    if (currKey == '4')
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
-                   if (currKey == '*'){
-                       Graphics_drawStringCentered(&g_sContext, "GO", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);
-                       setLeds(currKey-0x30);}
+
 
 
 
