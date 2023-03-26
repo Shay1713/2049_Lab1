@@ -100,6 +100,13 @@ void main(void)
                    (currKey = '*');
                    sequenceMax = 1;
                    round = 1;
+		   Graphics_clearDisplay(&g_sContext); // preparing to prompt the user
+                   Graphics_flushBuffer(&g_sContext);
+                   incPatternDisp();
+                   Graphics_clearDisplay(&g_sContext); // clearing pattern numbers
+                   Graphics_drawStringCentered(&g_sContext, "Repeat", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT); // instructing player
+                   Graphics_flushBuffer(&g_sContext);
+                   
 
                }
                /*if (currKey == '1')
