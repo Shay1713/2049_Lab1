@@ -20,11 +20,15 @@ void swDelay(char numLoops);
 
 
 
-
 // Main
 void main(void)
 
 {
+    int round; // how long the game 
+    int arrayIndex; // the position in each array
+    int sequenceMax = 35; // max game length
+    int patternArray[] = {}; // random led pattern 
+    int userArray[] = {}; saves user press button data
 
     unsigned char currKey=0, dispSz = 3;
     unsigned char dispThree[3];
@@ -57,9 +61,12 @@ void main(void)
            {
                // Check if any keys have been pressed on the 3x4 keypad
                currKey = getKey();
-               if (currKey == '*')
-                   BuzzerOff(); // play pattern sequence
-               //if ((currKey >= '1') && (currKey <= '4'))
+               if (currKey == '8') // restart game & rounds
+                   Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
+                   Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
+                   Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT); 
+                   round = 1;
+               //if ((currKey >= '1') && (currKey <= '4')) // for the game LEDs
                    //setLeds(currKey - 0x30);
                if (currKey == '1')
                    Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
@@ -73,6 +80,17 @@ void main(void)
                if (currKey == '4')
                    Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
                    setLeds(currKey - 0x30);
+               if (currKey == '*')
+                   Graphics_drawStringCentered(&g_sContext, "Get Ready", AUTO_STRING_LENGTH, 50, 15, TRANSPARENT_TEXT);
+                   setLeds(currKey - 0x30);
+                   swDelay(1);
+                   Graphics_drawStringCentered(&g_sContext, "3", AUTO_STRING_LENGTH, 40, 55, TRANSPARENT_TEXT);
+                   swDelay(1);
+                   Graphics_drawStringCentered(&g_sContext, "2", AUTO_STRING_LENGTH, 60, 55, TRANSPARENT_TEXT);
+                   swDelay(1);
+                   Graphics_drawStringCentered(&g_sContext, "1", AUTO_STRING_LENGTH, 80, 55, TRANSPARENT_TEXT);
+
+
                if (currKey)
                {
                    dispThree[1] = currKey;
