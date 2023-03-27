@@ -24,14 +24,15 @@ int arrayIndex = 0; // the position in each array
 int sequenceMax = 1; // max game length
 unsigned char patternArray[] = {}; // random led pattern
 unsigned char userArray[] = {}; //saves user press button data
-unsigned char currKey=0, dispSz = 3;
+unsigned char currKey=0, playerButton=0, dispSz = 3;
 unsigned char dispThree[3];
 int c = 0;
 
 
 // Function Prototypes
 void swDelay(char numLoops);
-void incPatternDisp ();
+void incPatternDisp (); // display & incrementing pattern length
+void incPlayerPress (); // collecting user input press
 
 
 
@@ -173,9 +174,10 @@ void main(void)
                }
                for (arrayIndex = 0; arrayIndex<sequenceMax; arrayIndex++){
                        if (userArray[arrayIndex] == patternArray[arrayIndex]) { // checking if ==
-                           cChecker = 1;
+                           cChecker = TRUE;
                        } else { // not equal
-                           cChecker = 0;
+                           cChecker = FALSE;
+                           BuzzerOn();
                            Graphics_clearDisplay(&g_sContext); // Clear the display
                            Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
                            Graphics_flushBuffer(&g_sContext);
@@ -183,14 +185,22 @@ void main(void)
                            for(c = 0; c<sequenceMax; c++) {
                                userArray[sequenceMax] = 0;
                                patternArray[sequenceMax] = 0;
-                           }
+                           } BuzzerOff();
                        }
 
                }
-               if (cChecker==1) { // the arrays came back as equal
-                   currKey = getKey();
-                   currKey = '*';
-               } cChecker = 2; // setting the checker to a num besides 1 and 2
+               if (cChecker==TRUE) { // the arrays came back as equal
+                   Graphics_drawStringCentered(&g_sContext, "Next Round", AUTO_STRING_LENGTH, 30, 25, TRANSPARENT_TEXT); // say next round 
+                   Graphics_flushBuffer(&g_sContext); // fresh
+                   BuzzerOn();
+                   swDelay(3);
+                   Graphics_clearDisplay(&g_sContext); // clear
+                   Graphics_flushBuffer(&g_sContext); // fresh
+                   BuzzerOff();
+                   setLeds(0);
+                   //incPatternDisp (); // call user func
+                   //incPlayerPress (); // cal player pattern func
+               } cChecker = 0; // setting the checker to a num besides 1 and 2
 
 
            }  // end while (1)
@@ -263,6 +273,63 @@ void incPatternDisp () //generating pattern array
             //currKey = '4';
             patternArray[arrayIndex] = '4';
             Graphics_drawStringCentered(&g_sContext, "4", AUTO_STRING_LENGTH, 70, 55, TRANSPARENT_TEXT);
+            setLeds('4' - 0x30);
+            Graphics_flushBuffer(&g_sContext); // refresh
+            BuzzerOn();
+            swDelay(1);
+            BuzzerOff();
+            setLeds(0);
+            Graphics_clearDisplay(&g_sContext); // clear
+        }
+    } sequenceMax++;
+
+}
+
+
+void incPlayerPress () //generating pattern array
+{   playerButton = getKey();
+    for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
+        randomNum = (rand() % 4) +1;
+        if (randomNum == 1){
+            playerButton = '1';
+            patternArray[arrayIndex] = playerButton;
+            Graphics_drawStringCentered(&g_sContext, "1", AUTO_STRING_LENGTH, 10, 55, TRANSPARENT_TEXT);
+            setLeds('1' - 0x30);
+            Graphics_flushBuffer(&g_sContext); // fresh
+            BuzzerOn();
+            swDelay(1);
+            BuzzerOff();
+            setLeds(0);
+            Graphics_clearDisplay(&g_sContext); // clear
+        }
+        if (randomNum == 2){
+            playerButton = '2';
+            patternArray[arrayIndex] = playerButton;
+            Graphics_drawStringCentered(&g_sContext, "2", AUTO_STRING_LENGTH, 30, 55, TRANSPARENT_TEXT);
+            setLeds('2' - 0x30);
+            Graphics_flushBuffer(&g_sContext); // refresh
+            BuzzerOn();
+            swDelay(1);
+            BuzzerOff();
+            setLeds(0);
+            Graphics_clearDisplay(&g_sContext); // clear
+        }
+        if (randomNum == 3){
+            playerButton = '3';
+            patternArray[arrayIndex] = playerButton;
+            Graphics_drawStringCentered(&g_sContext, "3", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);
+            setLeds('3' - 0x30);
+            Graphics_flushBuffer(&g_sContext); // refresh
+            BuzzerOn();
+            swDelay(1);
+            BuzzerOff();
+            setLeds(0);
+            Graphics_clearDisplay(&g_sContext); // clear
+        }
+        if (randomNum == 4){
+            playerButton = '4';
+            userArray[arrayIndex] = playerButton;
+            Graphics_drawStringCentered(&g_sContext, "3", AUTO_STRING_LENGTH, 70, 55, TRANSPARENT_TEXT);
             setLeds('4' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
