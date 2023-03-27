@@ -17,10 +17,10 @@
 // Declare globals here
 
 int round = 1; // how long the game
-int cChecker;
 int randomNum;
 int numMax = 4;
-int arrayIndex; // the position in each array
+int cChecker;
+int arrayIndex = 0; // the position in each array
 int sequenceMax = 1; // max game length
 unsigned char patternArray[] = {}; // random led pattern
 unsigned char userArray[] = {}; //saves user press button data
@@ -70,88 +70,89 @@ void main(void)
                // Check if any keys have been pressed on the 3x4 keypad
                currKey = getKey();
                if (currKey == '*'){
-                   (currKey = '3');
-                   setLeds(currKey - 0x30);
+                   //(currKey = '3');
+                   setLeds('3' - 0x30);
                    BuzzerOn();
                    Graphics_drawStringCentered(&g_sContext, "3", AUTO_STRING_LENGTH, 10, 55, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
                    swDelay(2);
                    BuzzerOff();
                    swDelay(2);
-                   (currKey = '2');
-                   setLeds(currKey - 0x30);
+                   //(currKey = '2');
+                   setLeds('2' - 0x30);
                    BuzzerOn();
-                   Graphics_drawStringCentered(&g_sContext, "2", AUTO_STRING_LENGTH, 20, 55, TRANSPARENT_TEXT);
+                   Graphics_drawStringCentered(&g_sContext, "2", AUTO_STRING_LENGTH, 30, 55, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
                    swDelay(2);
                    BuzzerOff();
                    swDelay(2);
-                   (currKey = '1');
-                   setLeds(currKey - 0x30);
+                   //(currKey = '1');
+                   setLeds('1' - 0x30);
                    BuzzerOn();
-                   Graphics_drawStringCentered(&g_sContext, "1", AUTO_STRING_LENGTH, 30, 55, TRANSPARENT_TEXT);
+                   Graphics_drawStringCentered(&g_sContext, "1", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
                    swDelay(2);
                    BuzzerOff();
                    swDelay(2);
-                   (currKey = '*');
-                   setLeds(currKey-0x30);
+                   //(currKey = '*');
+                   setLeds('*'-0x30);
                    BuzzerOn();
-                   Graphics_drawStringCentered(&g_sContext, "GO", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);
+                   Graphics_drawStringCentered(&g_sContext, "GO", AUTO_STRING_LENGTH, 70, 55, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
                    swDelay(2);
                    BuzzerOff();
                    swDelay(2);
 
                    Graphics_clearDisplay(&g_sContext); // preparing to prompt the user
-                   Graphics_flushBuffer(&g_sContext); // refreshing screen
+                   Graphics_flushBuffer(&g_sContext);
                    incPatternDisp(); // displaying pattern to user
                    Graphics_clearDisplay(&g_sContext); // clearing pattern numbers
                    Graphics_drawStringCentered(&g_sContext, "Repeat", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT); // instructing player
-                   Graphics_flushBuffer(&g_sContext); /// refreshing screen
+                   Graphics_flushBuffer(&g_sContext);
 
 
                }
-               if (currKey == '1')
+               if (currKey == '1'){
                    setLeds(currKey - 0x30);
-               if (currKey == '2')
+                   userArray[sequenceMax] = currKey;}
+               if (currKey == '2'){
                   setLeds(currKey - 0x30);
-               if (currKey == '3')
+                   userArray[sequenceMax] = currKey;}
+               if (currKey == '3'){
                    setLeds(currKey - 0x30);
-               if (currKey == '4')
+                   userArray[sequenceMax] = currKey;}
+               if (currKey == '4'){
                    setLeds(currKey - 0x30);
+                   userArray[sequenceMax] = currKey;}
                if (currKey == '9'){
                    setLeds(currKey - 0x30);
                    Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT); // restarting game
                    Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
                    sequenceMax = 1;
-                   swDelay(7);
+                   swDelay(4);
+               }
                if (currKey == '0'){
-                   setLeds(currKey - 0x30);
+                   setLeds('#' - 0x30);
                    Graphics_drawStringCentered(&g_sContext, "YOU LOSE", AUTO_STRING_LENGTH, 48, 50, TRANSPARENT_TEXT); // restarting game
                    Graphics_drawStringCentered(&g_sContext, "Press '9'", AUTO_STRING_LENGTH, 48, 60, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
                    sequenceMax = 1;
-                   swDelay(7);
+                   swDelay(4);
                }
                if (currKey)
                {
                    dispThree[1] = currKey;
                    if ((currKey >= '5') && (currKey <= '9'))
                        setLeds(0);
-                   if (currKey == '1'){
+                   if (currKey == '1')
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
-                       userArray[sequenceMax] = currKey;}
-                   if (currKey == '2'){
-                       Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
-                       userArray[sequenceMax] = currKey;}
-                   if (currKey == '3'){
+                   if (currKey == '2')
+                      Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
+                   if (currKey == '3')
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
-                       userArray[sequenceMax] = currKey;}
-                   if (currKey == '4'){
+                   if (currKey == '4')
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
-                       userArray[sequenceMax] = currKey;}
 
 
 
@@ -162,29 +163,35 @@ void main(void)
                    Graphics_flushBuffer(&g_sContext);
 
                    BuzzerOn();
-                   swDelay(1);
+                   swDelay(2);
                    BuzzerOff();
                    setLeds(0);
                    Graphics_clearDisplay(&g_sContext); // Clear the display
                    Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
-                   
                    Graphics_flushBuffer(&g_sContext);
 
+               }
+               for (arrayIndex = 0; arrayIndex<sequenceMax; arrayIndex++){
+                       if (userArray[arrayIndex] == patternArray[arrayIndex]) { // checking if ==
+                           cChecker = 1;
+                       } else { // not equal
+                           cChecker = 0;
+                           Graphics_clearDisplay(&g_sContext); // Clear the display
+                           Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
+                           Graphics_flushBuffer(&g_sContext);
+                           currKey = '0'; // resetting game
+                           for(c = 0; c<sequenceMax; c++) {
+                               userArray[sequenceMax] = 0;
+                               patternArray[sequenceMax] = 0;
+                           }
+                       }
 
-               } 
-               //if ( (sizeof(userArray)/sizeof(userArray[0])) == ((sizeof(patternArray)/sizeof(patternArray[0])) ) {
-                  // for(c=0; c<sequenceMax, c++){ 
+               }
+               if (cChecker==1) { // the arrays came back as equal
+                   currKey = getKey();
+                   currKey = '*';
+               } cChecker = 2; // setting the checker to a num besides 1 and 2
 
-                      //if(userArray[c] == patternArray[c]) {
-                          //cChecker = True;
-                      //} else {
-                          //cChecker = False;
-                          //Graphics_clearDisplay(&g_sContext); // Clear the display
-                          //Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
-                          //Graphics_flushBuffer(&g_sContext);
-                          //currKey == '0'; // resetting game
-                      //} 
-               //}
 
            }  // end while (1)
 
@@ -217,123 +224,55 @@ void incPatternDisp () //generating pattern array
     for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
         randomNum = (rand() % 4) +1;
         if (randomNum == 1){
-            currKey = '1';
-            patternArray[arrayIndex] = currKey;
-            Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
-            setLeds(currKey - 0x30);
-            Graphics_flushBuffer(&g_sContext);
+            //currKey = '1';
+            patternArray[arrayIndex] = '1';
+            Graphics_drawStringCentered(&g_sContext, "1", AUTO_STRING_LENGTH, 10, 55, TRANSPARENT_TEXT);
+            setLeds('1' - 0x30);
+            Graphics_flushBuffer(&g_sContext); // fresh
             BuzzerOn();
             swDelay(1);
             BuzzerOff();
             setLeds(0);
-            Graphics_clearDisplay(&g_sContext);
+            Graphics_clearDisplay(&g_sContext); // clear
         }
         if (randomNum == 2){
-            currKey = '2';
-            patternArray[arrayIndex] = currKey;
-            Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
-            setLeds(currKey - 0x30);
-            Graphics_flushBuffer(&g_sContext);
+            //currKey = '2';
+            patternArray[arrayIndex] = '2';
+            Graphics_drawStringCentered(&g_sContext, "2", AUTO_STRING_LENGTH, 30, 55, TRANSPARENT_TEXT);
+            setLeds('2' - 0x30);
+            Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
             swDelay(1);
             BuzzerOff();
             setLeds(0);
+            Graphics_clearDisplay(&g_sContext); // clear
         }
         if (randomNum == 3){
-            currKey = '3';
-            patternArray[arrayIndex] = currKey;
-            Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
-            setLeds(currKey - 0x30);
-            Graphics_flushBuffer(&g_sContext);
+            //currKey = '3';
+            patternArray[arrayIndex] = '3';
+            Graphics_drawStringCentered(&g_sContext, "3", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);
+            setLeds('3' - 0x30);
+            Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
             swDelay(1);
             BuzzerOff();
             setLeds(0);
+            Graphics_clearDisplay(&g_sContext); // clear
         }
         if (randomNum == 4){
-            currKey = '4';
-            patternArray[arrayIndex] = currKey;
-            Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
-            setLeds(currKey - 0x30);
-            Graphics_flushBuffer(&g_sContext);
+            //currKey = '4';
+            patternArray[arrayIndex] = '4';
+            Graphics_drawStringCentered(&g_sContext, "4", AUTO_STRING_LENGTH, 70, 55, TRANSPARENT_TEXT);
+            setLeds('4' - 0x30);
+            Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
             swDelay(1);
             BuzzerOff();
             setLeds(0);
+            Graphics_clearDisplay(&g_sContext); // clear
         }
     } sequenceMax++;
 
 }
 
 
-/*void buttonCollection(sequenceMax){
-    Graphics_clearDisplay(&g_sContext);
-    Graphics_drawStringCentered(&g_sContext, "Try To Repeat", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
-    Graphics_flushBuffer(&g_sContext);
-    for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
-        currKey = getKey();
-        if (currKey == '1')
-            setLeds(currKey - 0x30);
-            userArray[arrayIndex] = '1';
-        if (currKey == '2')
-            setLeds(currKey - 0x30);
-            userArray[arrayIndex] = '2';
-        if (currKey == '3')
-            setLeds(currKey - 0x30);
-            userArray[arrayIndex] = '3';
-        if (currKey == '4')
-            setLeds(currKey - 0x30);
-            userArray[arrayIndex] = '4';
-        if (currKey)
-        {
-            dispThree[1] = currKey;
-            if (currKey == '1')
-                Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
-            if (currKey == '2')
-                Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
-            if (currKey == '3')
-                Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
-            if (currKey == '4')
-                Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
-        }
-        // Refresh the display so it shows the new data
-        Graphics_flushBuffer(&g_sContext);
-        BuzzerOn();
-        swDelay(1);
-        BuzzerOff();
-        setLeds(0);
-        Graphics_clearDisplay(&g_sContext); // Clear the display
-        Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
-        Graphics_flushBuffer(&g_sContext);
-    }
-}*/
-
-
-/*void checkingOrder() // checking to see if the pattern and user arrays ==
-{ Graphics_drawStringCentered(&g_sContext, "Checking...", AUTO_STRING_LENGTH, 48, 80, TRANSPARENT_TEXT);
-  Graphics_flushBuffer(&g_sContext);
-    for(arrayIndex = 0; arrayIndex<sequenceMax); arrayIndex++){
-      if (patternArray[arrayIndex] == userArray[arrayIndex]){ // if arrays equal
-          for(arrayIndex = 0; arrayIndex<sequenceMax); arrayIndex++)
-              userArray[arrayIndex] = 0; // clearing user button input array
-          round++;
-          sequenceMax++;
-          incPatternDisp (); // playing another round
-     } else { // if arrays not equal
-        BuzzerOn();
-        Graphics_drawStringCentered(&g_sContext, "Game Over", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
-        Graphics_drawStringCentered(&g_sContext, "Press 9 To", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
-        Graphics_drawStringCentered(&g_sContext, "Play Again", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
-        Graphics_flushBuffer(&g_sContext);
-        BuzzerOff();
-        for(arrayIndex = 0; arrayIndex<sequenceMax; arrayIndex++)
-            userArray[arrayIndex] = 0; // clearing user button input array
-        for(arrayIndex = 0; arrayIndex<sequenceMax; arrayIndex++)
-            patternArray[arrayIndex] = 0; // clearing pattern display array
-        sequenceMax = 1;
-
-      }
-    }
- Graphics_clearDisplay(&g_sContext);
- Graphics_flushBuffer(&g_sContext);
- }*/
