@@ -17,6 +17,7 @@
 // Declare globals here
 
 int round = 1; // how long the game
+int cChecker;
 int randomNum;
 int numMax = 4;
 int arrayIndex; // the position in each array
@@ -126,6 +127,13 @@ void main(void)
                    Graphics_flushBuffer(&g_sContext);
                    sequenceMax = 1;
                    swDelay(7);
+               if (currKey == '0'){
+                   setLeds(currKey - 0x30);
+                   Graphics_drawStringCentered(&g_sContext, "YOU LOSE", AUTO_STRING_LENGTH, 48, 50, TRANSPARENT_TEXT); // restarting game
+                   Graphics_drawStringCentered(&g_sContext, "Press '9'", AUTO_STRING_LENGTH, 48, 60, TRANSPARENT_TEXT);
+                   Graphics_flushBuffer(&g_sContext);
+                   sequenceMax = 1;
+                   swDelay(7);
                }
                if (currKey)
                {
@@ -159,12 +167,24 @@ void main(void)
                    setLeds(0);
                    Graphics_clearDisplay(&g_sContext); // Clear the display
                    Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
+                   
                    Graphics_flushBuffer(&g_sContext);
 
 
                } 
-               // for(c=0; c<sequenceMax, c++)
-                      // 
+               //if ( (sizeof(userArray)/sizeof(userArray[0])) == ((sizeof(patternArray)/sizeof(patternArray[0])) ) {
+                  // for(c=0; c<sequenceMax, c++){ 
+
+                      //if(userArray[c] == patternArray[c]) {
+                          cChecker = True;
+                      //} else {
+                          //cChecker = False;
+                          //Graphics_clearDisplay(&g_sContext); // Clear the display
+                          //Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
+                          //Graphics_flushBuffer(&g_sContext);
+                          //currKey == '0'; // resetting game
+                      //} 
+               //}
 
            }  // end while (1)
 
@@ -310,7 +330,6 @@ void incPatternDisp () //generating pattern array
             userArray[arrayIndex] = 0; // clearing user button input array
         for(arrayIndex = 0; arrayIndex<sequenceMax; arrayIndex++)
             patternArray[arrayIndex] = 0; // clearing pattern display array
-        round = 1;
         sequenceMax = 1;
 
       }
