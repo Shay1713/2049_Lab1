@@ -16,11 +16,11 @@
 
 // Declare globals here
 
-int round; // how long the game
+int round = 1; // how long the game
 int randomNum;
 int numMax = 4;
 int arrayIndex; // the position in each array
-int sequenceMax; // max game length
+int sequenceMax = 1; // max game length
 unsigned char patternArray[] = {}; // random led pattern
 unsigned char userArray[] = {}; //saves user press button data
 unsigned char currKey=0, dispSz = 3;
@@ -132,14 +132,18 @@ void main(void)
                    dispThree[1] = currKey;
                    if ((currKey >= '5') && (currKey <= '9'))
                        setLeds(0);
-                   if (currKey == '1')
+                   if (currKey == '1'){
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
-                   if (currKey == '2')
-                      Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
-                   if (currKey == '3')
+                       userArray[sequenceMax] = currKey;}
+                   if (currKey == '2'){
+                       Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
+                       userArray[sequenceMax] = currKey;}
+                   if (currKey == '3'){
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
-                   if (currKey == '4')
+                       userArray[sequenceMax] = currKey;}
+                   if (currKey == '4'){
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
+                       userArray[sequenceMax] = currKey;}
 
 
 
@@ -158,7 +162,9 @@ void main(void)
                    Graphics_flushBuffer(&g_sContext);
 
 
-               }
+               } 
+               // for(c=0; c<sequenceMax, c++)
+                      // 
 
            }  // end while (1)
 
