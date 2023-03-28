@@ -103,6 +103,7 @@ void main(void)
                    Graphics_flushBuffer(&g_sContext);
                    swDelay(2);
                    BuzzerOff();
+                   setLeds(0);
                    swDelay(2);
                    // calling first round to LCD screen
                    Graphics_clearDisplay(&g_sContext); // preparing to prompt the user
@@ -151,19 +152,23 @@ void main(void)
                    if (currKey == '1'){
                        userArray[sequenceMax-1] = currKey;
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
-                       printf("Button 1 pressed\n");}
+                       printf("Button 1 pressed\n");
+                       printf("sequenceMax pressed 1 is: %d\n", sequenceMax);}
                    if (currKey == '2'){
                       userArray[sequenceMax-1] = currKey;
                       Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
-                      printf("Button 2 pressed\n");}
+                      printf("Button 2 pressed\n");
+                      printf("sequenceMax pressed 2 is: %d\n", sequenceMax);}
                    if (currKey == '3'){
                        userArray[sequenceMax-1] = currKey;
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
-                       printf("Button 3 pressed\n");}
+                       printf("Button 3 pressed\n");
+                       printf("sequenceMax pressed 3 is: %d\n", sequenceMax);}
                    if (currKey == '4'){
                        userArray[sequenceMax-1] = currKey;
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
-                       printf("Button 4 pressed\n");}
+                       printf("Button 4 pressed\n");
+                       printf("sequenceMax pressed 4 is: %d\n", sequenceMax);}
                    if (currKey == '0'){
                       clearingPatternUserArrays();
                       printf("Button 0 pressed\n");
@@ -186,10 +191,10 @@ void main(void)
 
 
                    //checkIfEqual(); // checking if arrays are equal
-                
-                  
-               } 
-                
+
+
+               }
+
                if (sequenceMax==40){ // setting game limit max rounds
                    Graphics_clearDisplay(&g_sContext); // Clear the display
                    Graphics_drawStringCentered(&g_sContext, "YOU WIN", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
@@ -197,7 +202,7 @@ void main(void)
                    swDelay(10);
                    sequenceMax=1; // resetting game rounds
                }
-               
+
 
            }  // end while (1)
 
@@ -225,11 +230,11 @@ void swDelay(char numLoops)
 
 
 void incPatternDisp () //generating pattern array
-{   currKey = getKey();
+{   //currKey = getKey();
+    printf("IPD: BEFORE array index %d, sequenceMax %d, randomNum is %d\n", arrayIndex, sequenceMax, randomNum);
     for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
         randomNum = (rand() % 4) +1;
-        printf("IPD: in array index %d, sequenceMax %d, randomNum is %d\n", arrayIndex, sequenceMax, randomNum);
-        if (randomNum == '1'){
+        if (randomNum == 1){
             patternArray[arrayIndex] = '1';
             Graphics_drawStringCentered(&g_sContext, "1", AUTO_STRING_LENGTH, 10, 55, TRANSPARENT_TEXT);
             setLeds('1' - 0x30);
@@ -240,7 +245,7 @@ void incPatternDisp () //generating pattern array
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
         }
-        if (randomNum == '2'){
+        if (randomNum == 2){
             patternArray[arrayIndex] = '2';
             Graphics_drawStringCentered(&g_sContext, "2", AUTO_STRING_LENGTH, 30, 55, TRANSPARENT_TEXT);
             setLeds('2' - 0x30);
@@ -251,7 +256,7 @@ void incPatternDisp () //generating pattern array
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
         }
-        if (randomNum == '3'){
+        if (randomNum == 3){
             patternArray[arrayIndex] = '3';
             Graphics_drawStringCentered(&g_sContext, "3", AUTO_STRING_LENGTH, 50, 55, TRANSPARENT_TEXT);
             setLeds('3' - 0x30);
@@ -262,7 +267,7 @@ void incPatternDisp () //generating pattern array
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
         }
-        if (randomNum == '4'){
+        if (randomNum == 4){
             patternArray[arrayIndex] = '4';
             Graphics_drawStringCentered(&g_sContext, "4", AUTO_STRING_LENGTH, 70, 55, TRANSPARENT_TEXT);
             setLeds('4' - 0x30);
@@ -273,6 +278,7 @@ void incPatternDisp () //generating pattern array
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
         }
+        printf("IPD: in array index %d, sequenceMax %d, randomNum is %d\n", arrayIndex, sequenceMax, randomNum);
     }
 
 }
@@ -300,31 +306,25 @@ void checkIfEqual() {
       if ((arrayLengthU == arrayLengthP) && (arrayLengthU>0)) {
          for(arrayIndex = 0; arrayIndex<arrayLengthU; arrayIndex++) {
             if ((userArray[arrayIndex] == patternArray[arrayIndex])) {
-                cChecker=1; 
-            } else { 
+                cChecker=1;
+            } else {
                 cChecker = 0;
                 clearingPatternUserArrays();
-                break; 
+                break;
             }
-         } 
+         }
          for (arrayIndex = 0; arrayIndex < arrayLengthU; arrayIndex++){
               userArray[arrayIndex] = '\0';
          }
          if (cChecker == 1) {
              sequenceMax++;
-             cChecker = 2; // just setting to another value 
+             cChecker = 2; // just setting to another value
              currKey = getKey();
              currKey = '*';
-         } else { 
+         } else {
              cChecker = 2; // just setting to another value
              currKey = getKey();
              currKey = '9';
          }
       }
 }
-
-
-
-
-
-
