@@ -20,6 +20,8 @@ int arrayIndexU = -1; // position in user array
 int sequenceMax = 1; // max game length
 int patternArray[] = {}; // random led pattern
 int userArray[] = {}; //saves user press button data
+int timer = 6;
+timer = timer-0.25
 
 unsigned char currKey=0, dispSz = 3; // DO NOT CHANGE
 unsigned char dispThree[3]; // DO NOT CHANGE
@@ -34,12 +36,10 @@ void checkIfEqual();
 void endGameReached();
 
 
-// Main
+
 void main(void)
 {
 
-
-    // Useful code starts here
 
     WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
 
@@ -57,9 +57,8 @@ void main(void)
     Graphics_flushBuffer(&g_sContext);
     dispThree[0] = ' ';
     dispThree[2] = ' ';
-
-
-    // check console stuff here
+    
+    timer = timer - 0.15; // controlling time 
 
 
         while (1)    // Forever loop
@@ -225,10 +224,7 @@ void swDelay(char numLoops)
 {
     // This function is a software delay.
 
-    volatile unsigned int i,j;  // volatile to prevent removal in optimization
-                                // by compiler. Functionally this is useless code
-    //int speed = 0;
-    //speed = speed +100;
+    volatile unsigned int i,j; 
     for (j=0; j<numLoops; j++)
     {
         i = 50000 ;         // SW Delay
@@ -248,7 +244,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('1' - 0x30);
             Graphics_flushBuffer(&g_sContext); // fresh
             BuzzerOn();
-            swDelay(1);
+            swDelay(timer);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -260,7 +256,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('2' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(1);
+            swDelay(timer);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -272,7 +268,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('3' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(1);
+            swDelay(timer);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -284,7 +280,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('4' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(1);
+            swDelay(timer);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
