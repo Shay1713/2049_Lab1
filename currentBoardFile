@@ -16,16 +16,16 @@ int randomNum;
 int numMax = 4;
 int c = 0; // counter
 int cChecker; // counter
-int arrayIndex = 0; // the position in each array
-int arrayIndexP = 0;
+int arrayIndex = 0; // position in user array
+int arrayIndexP = 0; // position in pattern array
 int sequenceMax = 1; // max game length
 char playerButton;
 unsigned char patternArray[] = {}; // random led pattern
 unsigned char userArray[] = {}; //saves user press button data
-unsigned char currKey=0, dispSz = 3;
-unsigned char dispThree[3];
-unsigned char arrayLengthU = sizeof(userArray)/sizeof(userArray[0]); // for length of array
-unsigned char arrayLengthP = sizeof(patternArray)/sizeof(patternArray[0]); // for length of array
+unsigned char currKey=0, dispSz = 3; // DO NOT CHANGE
+unsigned char dispThree[3]; // DO NOT CHANGE
+//unsigned char arrayLengthU = sizeof(userArray)/sizeof(userArray[0]); // for length of user array ?
+//unsigned char arrayLengthP = sizeof(patternArray)/sizeof(patternArray[0]); // for length of pattern array ?
 
 
 
