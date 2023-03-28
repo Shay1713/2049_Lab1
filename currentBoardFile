@@ -21,7 +21,6 @@ int sequenceMax = 1; // max game length
 int patternArray[] = {}; // random led pattern
 int userArray[] = {}; //saves user press button data
 int timer = 6;
-timer = timer-0.25
 
 unsigned char currKey=0, dispSz = 3; // DO NOT CHANGE
 unsigned char dispThree[3]; // DO NOT CHANGE
