@@ -316,7 +316,7 @@ void checkIfEqual() {
              currKey = getKey();
              currKey = '*';
          } else { 
-             clearingPatternUserArrays();
+             cChecker = 2; // just setting to another value
              currKey = getKey();
              currKey = '9';
          }
