@@ -201,6 +201,13 @@ void main(void)
                       arrayIndexP = 0; // resetting player button Array Index
                       sequenceMax = 1; // resetting rounds
                    }
+                   if (currKey == '*'){
+                      printf("Button * pressed\n");
+                      arrayIndex = 0; // resetting user Array Index
+                      arrayIndexP = 0; // resetting player button Array Index
+                      sequenceMax = 1; // resetting rounds
+                   }
+
 
                    // Refresh the display so it shows the new data
                    Graphics_flushBuffer(&g_sContext);
