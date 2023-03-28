@@ -34,7 +34,7 @@ void incPatternDisp (); // incrementing and displaying pattern
 void clearingPatternUserArrays(); // if player loses, resetting arrays
 void checkIfEqual();
 void endGameReached();
-void time2(numLoops2, c)
+void time2(numLoops2, c);
 
 
 
