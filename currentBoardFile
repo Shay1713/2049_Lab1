@@ -183,8 +183,12 @@ void main(void)
                    Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
 
+
+
+                   //checkIfEqual(); // checking if arrays are equal
+                
+                  
                } 
-               //checkIfEqual(); // checking if arrays are equal
                 
                if (sequenceMax==40){ // setting game limit max rounds
                    Graphics_clearDisplay(&g_sContext); // Clear the display
@@ -193,11 +197,14 @@ void main(void)
                    swDelay(10);
                    sequenceMax=1; // resetting game rounds
                }
+               
 
            }  // end while (1)
 
 }
 
+
+// functions start here
 
 void swDelay(char numLoops)
 {
