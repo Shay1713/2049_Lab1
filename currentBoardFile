@@ -131,8 +131,11 @@ void main(void)
                    setLeds('8' - 0x30);
                }
 
-               
 
+               // other than button functions
+               if ( (arrayIndex == arrayIndexP) && (arrayIndex>0) ) { // would prompt array check if both same length 
+                  checkIfEqual();
+               }
                if (sequenceMax==40){ // setting game limit max rounds
                    Graphics_clearDisplay(&g_sContext); // Clear the display
                    Graphics_drawStringCentered(&g_sContext, "YOU WIN", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
@@ -142,7 +145,7 @@ void main(void)
                }
 
 
-               if (currKey)
+               if (currKey) // back to the buttons 
                {
                    dispThree[1] = currKey;
                    if ((currKey >= '5') && (currKey <= '8')){
