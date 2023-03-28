@@ -13,14 +13,16 @@
 // Declare globals here
 
 int randomNum; // prep for random number generator
-int cChecker = 2;; // counter
+int cChecker = 2; // counter
 int arrayIndex = 0; // position in any array
 int arrayIndexP = 0; // position in pattern array
 int arrayIndexU = -1; // position in user array
 int sequenceMax = 1; // max game length
+int time = 50000;
+int c = 0;
 int patternArray[] = {}; // random led pattern
 int userArray[] = {}; //saves user press button data
-
+char numLoops2;
 unsigned char currKey=0, dispSz = 3; // DO NOT CHANGE
 unsigned char dispThree[3]; // DO NOT CHANGE
 
@@ -32,6 +34,7 @@ void incPatternDisp (); // incrementing and displaying pattern
 void clearingPatternUserArrays(); // if player loses, resetting arrays
 void checkIfEqual();
 void endGameReached();
+time2(numLoops2, c)
 
 
 
@@ -218,17 +221,26 @@ void main(void)
 
 void swDelay(char numLoops)
 {
-    // This function is a software delay.
-
     volatile unsigned int i,j; 
     for (j=0; j<numLoops; j++)
     {
-        i = 50000 ;         // SW Delay
-        while (i > 0)               // could also have used while (i)
+        i = 50000 ;        
+        while (i > 0)               
            i--;
     }
 }
 
+
+void time2(numLoops2, c) {
+         
+    for (arrayIndex=0; arrayIndex<numLoops2; arrayIndex++) 
+    {
+        while (time > 0)          
+           time--;
+     }
+     time = time-c
+
+}
 
 
 void incPatternDisp () //generating random pattern array
