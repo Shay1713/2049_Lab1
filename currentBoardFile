@@ -20,7 +20,6 @@ int arrayIndexU = -1; // position in user array
 int sequenceMax = 1; // max game length
 int patternArray[] = {}; // random led pattern
 int userArray[] = {}; //saves user press button data
-int timer = 6;
 
 unsigned char currKey=0, dispSz = 3; // DO NOT CHANGE
 unsigned char dispThree[3]; // DO NOT CHANGE
@@ -56,8 +55,6 @@ void main(void)
     Graphics_flushBuffer(&g_sContext);
     dispThree[0] = ' ';
     dispThree[2] = ' ';
-    
-    timer = timer - 0.15; // controlling time 
 
 
         while (1)    // Forever loop
@@ -243,7 +240,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('1' - 0x30);
             Graphics_flushBuffer(&g_sContext); // fresh
             BuzzerOn();
-            swDelay(timer);
+            swDelay(4);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -255,7 +252,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('2' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(timer);
+            swDelay(4);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -267,7 +264,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('3' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(timer);
+            swDelay(4);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -279,7 +276,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('4' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(timer);
+            swDelay(4);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
