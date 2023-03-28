@@ -235,10 +235,11 @@ void time2(numLoops2, c) {
          
     for (arrayIndex=0; arrayIndex<numLoops2; arrayIndex++) 
     {
-        while (time > 0)          
+        while (time > 0)    
+        {      
            time--;
-     }
-     time = time-c
+        }
+     time = time-c;
 
 }
 
