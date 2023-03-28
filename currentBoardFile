@@ -206,9 +206,6 @@ void main(void)
                    }
                    if (currKey == '*'){
                       printf("Button * pressed\n");
-                      arrayIndex = 0; // resetting user Array Index
-                      arrayIndexP = 0; // resetting player button Array Index
-                      sequenceMax = 1; // resetting rounds
                    }
 
 
