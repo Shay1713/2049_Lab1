@@ -113,9 +113,9 @@ void main(void)
 
 
                }
-               if (currKey == '#'){
+               /*if (currKey == '#'){
                   setLeds(currKey - 0x30);
-               }
+               }*?
                if (currKey == '1'){
                    setLeds(currKey - 0x30);
                }
@@ -202,9 +202,9 @@ void main(void)
                       arrayIndexU = -1;
                       sequenceMax = 1; // resetting rounds
                    }
-                   if (currKey == '#'){
+                   /*if (currKey == '#'){
                       checkIfEqual();
-                   }
+                   }*/
 
                    // Refresh the display so it shows the new data
                    Graphics_flushBuffer(&g_sContext);
