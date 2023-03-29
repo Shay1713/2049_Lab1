@@ -38,34 +38,22 @@ void time2(int numLoops2, int c);
 // Main
 void main(void)
 {
-
-
     // Useful code starts here
-
     WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
-
-
     initLeds();
     configDisplay();
     configKeypad();
-
     // *** Intro Screen ***
     Graphics_clearDisplay(&g_sContext); // Clear the display
     Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
     Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
     Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT);
-
     Graphics_flushBuffer(&g_sContext);
     dispThree[0] = ' ';
     dispThree[2] = ' ';
-
-
-    // check console stuff here
-
-
+    
         while (1)    // Forever loop
            {
-
                // Check if any keys have been pressed on the 3x4 keypad
                currKey = getKey();
                if (currKey == '*'){ // counting down
@@ -110,8 +98,6 @@ void main(void)
                    Graphics_flushBuffer(&g_sContext);
                    swDelay(3);
                    //arrayIndexU++;
-
-
                }
                /*if (currKey == '#'){
                   setLeds(currKey - 0x30);
@@ -215,28 +201,17 @@ void main(void)
                    Graphics_clearDisplay(&g_sContext); // Clear the display
                    Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
                    Graphics_flushBuffer(&g_sContext);
-
                }
-
-
-
-
-
            }  // end while (1)
 
 }
-
-
 // functions start here
-
 void swDelay(char numLoops)
 {
     // This function is a software delay.
 
     volatile unsigned int i,j;  // volatile to prevent removal in optimization
                                 // by compiler. Functionally this is useless code
-    //int speed = 0;
-    //speed = speed +100;
     for (j=0; j<numLoops; j++)
     {
         i = 50000 ;         // SW Delay
@@ -244,8 +219,6 @@ void swDelay(char numLoops)
            i--;
     }
 }
-
-
 void time2(numLoops2, c) {
     for (arrayIndex=0; arrayIndex<numLoops2; arrayIndex++)
     {
@@ -256,8 +229,6 @@ void time2(numLoops2, c) {
     }
     time = time-c;
 }
-
-
 void incPatternDisp () //generating random pattern array
 {
     for (arrayIndexP = 0; arrayIndexP < sequenceMax; arrayIndexP++){ // generating here
@@ -313,8 +284,6 @@ void incPatternDisp () //generating random pattern array
     }
 
 }
-
-
 void checkIfEqual() { // are arrays equal
     if (arrayIndexU == arrayIndexP) { // would prompt array check if both same length
         printf("START HERE: arrayIndexU %d, arrayIndexP %d\n", arrayIndexU, arrayIndexP);
@@ -323,10 +292,7 @@ void checkIfEqual() { // are arrays equal
             printf("u %d\n", userArray[arrayIndex]); // clearing user array
             printf("p %d\n", patternArray[arrayIndex]); // clearing random pattern array
         }
-
-
         for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
-
             if (userArray[arrayIndex] == patternArray[arrayIndex]){
                 printf("arrayIndex %d, userArray[arrayIndex] %d, patternArray[arrayIndex] %d\n", arrayIndex, userArray[arrayIndex], patternArray[arrayIndex]);
                 printf("same %d\n", arrayIndex);
@@ -363,10 +329,7 @@ void checkIfEqual() { // are arrays equal
             clearingPatternUserArrays();
         }
     }
-
 }
-
-
 void clearingPatternUserArrays() { // clearing the pattern and user arrays to restart
     for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
         userArray[arrayIndex] = 0; // clearing user array
@@ -374,7 +337,6 @@ void clearingPatternUserArrays() { // clearing the pattern and user arrays to re
     }
     printf("arrays are cleared\n");
 }
-
 void endGameReached() {
     if (sequenceMax==40){ // setting game limit max rounds
         Graphics_clearDisplay(&g_sContext); // Clear the display
@@ -384,10 +346,3 @@ void endGameReached() {
         sequenceMax=1; // resetting game rounds
    }
 }
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Statu
