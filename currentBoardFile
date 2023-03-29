@@ -13,16 +13,14 @@
 // Declare globals here
 
 int randomNum; // prep for random number generator
-int cChecker = 2; // counter
+int cChecker = 2;; // counter
 int arrayIndex = 0; // position in any array
 int arrayIndexP = 0; // position in pattern array
 int arrayIndexU = -1; // position in user array
 int sequenceMax = 1; // max game length
-int time = 50000;
-int c = 0;
 int patternArray[] = {}; // random led pattern
 int userArray[] = {}; //saves user press button data
-char numLoops2;
+unsigned int time = 50000; // time integer loop
 unsigned char currKey=0, dispSz = 3; // DO NOT CHANGE
 unsigned char dispThree[3]; // DO NOT CHANGE
 
@@ -34,13 +32,15 @@ void incPatternDisp (); // incrementing and displaying pattern
 void clearingPatternUserArrays(); // if player loses, resetting arrays
 void checkIfEqual();
 void endGameReached();
-void time2(numLoops2, c);
+void time2(int numLoops2, int c);
 
 
-
+// Main
 void main(void)
 {
 
+
+    // Useful code starts here
 
     WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
 
@@ -58,6 +58,9 @@ void main(void)
     Graphics_flushBuffer(&g_sContext);
     dispThree[0] = ' ';
     dispThree[2] = ' ';
+
+
+    // check console stuff here
 
 
         while (1)    // Forever loop
@@ -96,16 +99,22 @@ void main(void)
                    setLeds(0);
                    swDelay(2);*/
                    // calling first round to LCD screen
-                   endGameReached();
+                   //endGameReached();
                    Graphics_clearDisplay(&g_sContext); // preparing to prompt the user
                    Graphics_flushBuffer(&g_sContext);
                    incPatternDisp(); // displaying pattern to user
                    Graphics_clearDisplay(&g_sContext); // clearing pattern numbers
-                   Graphics_drawStringCentered(&g_sContext, "Repeat", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT); // instructing player
+                   Graphics_drawStringCentered(&g_sContext, "Repeat Pattern", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT); // instructing player
+                   Graphics_drawStringCentered(&g_sContext, "Press '#'", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT); // instructing player
+                   Graphics_drawStringCentered(&g_sContext, "When Done", AUTO_STRING_LENGTH, 48, 45, TRANSPARENT_TEXT); // instructing player
                    Graphics_flushBuffer(&g_sContext);
+                   swDelay(6);
                    arrayIndexU++;
 
 
+               }
+               if (currKey == '#'){
+                  setLeds(currKey - 0x30);
                }
                if (currKey == '1'){
                    setLeds(currKey - 0x30);
@@ -135,38 +144,38 @@ void main(void)
                        printf("Button 5-8 pressed\n");
                    }
                    if (currKey == '1'){
-                       userArray[arrayIndexU] = 1;
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
                        printf("Button 1 pressed\n");
-                       //printf("sequenceMax pressed 1 is: %d\n", sequenceMax);
-                       //printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
+                       userArray[arrayIndexU] = 1;
+                       printf("sequenceMax pressed 1 is: %d\n", sequenceMax);
+                       printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
                        arrayIndexU++;
                        checkIfEqual();
                    }
                    if (currKey == '2'){
-                      userArray[arrayIndexU] = 2;
                       Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
                       printf("Button 2 pressed\n");
-                      //printf("sequenceMax pressed 2 is: %d\n", sequenceMax);
-                      //printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
+                      userArray[arrayIndexU] = 2;
+                      printf("sequenceMax pressed 2 is: %d\n", sequenceMax);
+                      printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
                       arrayIndexU++;
                       checkIfEqual();
                    }
                    if (currKey == '3'){
-                       userArray[arrayIndexU] = 3;
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
                        printf("Button 3 pressed\n");
-                       //printf("sequenceMax pressed 3 is: %d\n", sequenceMax);
-                       //printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
+                       userArray[arrayIndexU] = 3;
+                       printf("sequenceMax pressed 3 is: %d\n", sequenceMax);
+                       printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
                        arrayIndexU++;
                        checkIfEqual();
                    }
                    if (currKey == '4'){
-                       userArray[arrayIndexU] = 4;
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
                        printf("Button 4 pressed\n");
-                       //printf("sequenceMax pressed 4 is: %d\n", sequenceMax);
-                       //printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
+                       userArray[arrayIndexU] = 4;
+                       printf("sequenceMax pressed 4 is: %d\n", sequenceMax);
+                       printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
                        arrayIndexU++;
                        checkIfEqual();
                    }
@@ -193,8 +202,9 @@ void main(void)
                       arrayIndexU = -1;
                       sequenceMax = 1; // resetting rounds
                    }
-
-
+                   if (currKey == '#'){
+                      checkIfEqual();
+                   }
 
                    // Refresh the display so it shows the new data
                    Graphics_flushBuffer(&g_sContext);
@@ -221,26 +231,30 @@ void main(void)
 
 void swDelay(char numLoops)
 {
-    volatile unsigned int i,j; 
+    // This function is a software delay.
+
+    volatile unsigned int i,j;  // volatile to prevent removal in optimization
+                                // by compiler. Functionally this is useless code
+    //int speed = 0;
+    //speed = speed +100;
     for (j=0; j<numLoops; j++)
     {
-        i = 50000 ;        
-        while (i > 0)               
+        i = 50000 ;         // SW Delay
+        while (i > 0)               // could also have used while (i)
            i--;
     }
 }
 
 
 void time2(numLoops2, c) {
-         
-    for (arrayIndex=0; arrayIndex<numLoops2; arrayIndex++) 
+    for (arrayIndex=0; arrayIndex<numLoops2; arrayIndex++)
     {
-        while (time > 0)    
-        {      
+        while (time > 0)
+        {
            time--;
         }
-     time = time-c;
-
+    }
+    time = time-c;
 }
 
 
@@ -253,7 +267,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('1' - 0x30);
             Graphics_flushBuffer(&g_sContext); // fresh
             BuzzerOn();
-            swDelay(4);
+            time2(12, 900);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -265,19 +279,19 @@ void incPatternDisp () //generating random pattern array
             setLeds('2' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(4);
+            time2(12, 900);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
             patternArray[arrayIndexP] = 2;
-            printf("patternArray is %d and arrayIndexP is %d\n ", patternArray[arrayIndexP], arrayIndexP);
+            printf("patternArray is %d and arrayIndexP is %d and randomNum is %d\n ", patternArray[arrayIndexP], arrayIndexP, randomNum);
         }
         if (randomNum == 3){
             Graphics_drawStringCentered(&g_sContext, "3", AUTO_STRING_LENGTH, 60, 55, TRANSPARENT_TEXT);
             setLeds('3' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(4);
+            time2(12, 900);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -289,7 +303,7 @@ void incPatternDisp () //generating random pattern array
             setLeds('4' - 0x30);
             Graphics_flushBuffer(&g_sContext); // refresh
             BuzzerOn();
-            swDelay(4);
+            time2(12, 900);
             BuzzerOff();
             setLeds(0);
             Graphics_clearDisplay(&g_sContext); // clear
@@ -304,16 +318,24 @@ void incPatternDisp () //generating random pattern array
 void checkIfEqual() { // are arrays equal
     if (arrayIndexU == arrayIndexP) { // would prompt array check if both same length
         printf("START HERE: arrayIndexU %d, arrayIndexP %d\n", arrayIndexU, arrayIndexP);
+
+        for (arrayIndexP = 0; arrayIndex < sequenceMax; arrayIndex++){
+            printf("u %d\n", userArray[arrayIndex]); // clearing user array
+            printf("p %d\n", patternArray[arrayIndex]); // clearing random pattern array
+        }
+
+
         for (arrayIndex = 0; arrayIndex < sequenceMax; arrayIndex++){
-            if (userArray[arrayIndex] < 0) {
+
+            if (userArray[arrayIndex] == patternArray[arrayIndex]){
+                printf("arrayIndex %d, userArray[arrayIndex] %d, patternArray[arrayIndex] %d\n", arrayIndex, userArray[arrayIndex], patternArray[arrayIndex]);
+                printf("same %d\n", arrayIndex);
+                cChecker = 1;
+            } else {
                 cChecker = 0;
                 printf("arrayIndex %d, userArray[arrayIndex] %d, patternArray[arrayIndex] %d\n", arrayIndex, userArray[arrayIndex], patternArray[arrayIndex]);
                 printf("not same %d\n", arrayIndex);
                 break;
-            } else if (userArray[arrayIndex] == patternArray[arrayIndex]){
-                printf("arrayIndex %d, userArray[arrayIndex] %d, patternArray[arrayIndex] %d\n", arrayIndex, userArray[arrayIndex], patternArray[arrayIndex]);
-                printf("same %d\n", arrayIndex);
-                cChecker = 1;
             }
         }
         if (cChecker == 1) {
@@ -331,7 +353,6 @@ void checkIfEqual() { // are arrays equal
             arrayIndexP = 0;
             arrayIndexU = -1;
         } else if (cChecker == 0) {
-            cChecker = 2;
             cChecker = 2;
             printf("U %d and P %d\n", userArray[arrayIndex], patternArray[arrayIndex]);
             printf("not same %d\n", arrayIndex);
