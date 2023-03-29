@@ -13,11 +13,13 @@
 #include "peripherals.h"
 
 // Function Prototypes
-void swDelay(char numLoops);
-void sendSimon(int[] sequence, int length);
-int[] loadSequence(int[] sequence, int count);
+void swDelay2(char numLoops);
+void sendSimon(int sequence, int length);
+int loadSequence(int sequence, int count);
 void printNum(char input);
 void printNum(char input);
+void countDown(void);
+//unsigned char dispSz = 0;
 
 // Declare globals here
 enum GAME_STATE {WELCOME, STARTING, SEQUENCE, INPUT};
@@ -26,20 +28,26 @@ enum GAME_STATE {WELCOME, STARTING, SEQUENCE, INPUT};
 void main(void)
 
 {
+    WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
+                                     // You can then configure it properly, if desired
     unsigned char currKey=0;
 
     // Define some local variables
     unsigned int length = 32;
-    unsigned int sequence[length];
-    unsigned int playerInput[length];
+    int sequence[length];
+//    unsigned int playerInput[length];
     unsigned int currentLength = 4;
     unsigned int currentIndex = 0;
     enum GAME_STATE state = WELCOME;
 
-    sequence = loadSequence(sequence, length);
+//    sequence = loadSequence(sequence, length);
+    int i = 0;
+    for (i = 0; i < length; i++) {
+            int num = (rand() % (4)) + 1;
+            sequence[i] = num;
+     }
 
-    WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
-                                 // You can then configure it properly, if desired
+
 
     // Useful code starts here
     initLeds();
@@ -47,12 +55,15 @@ void main(void)
     configKeypad();
 
     Graphics_clearDisplay(&g_sContext); // Clear the display
+    Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT); // instructing player
+    Graphics_drawStringCentered(&g_sContext, "Press '*'", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT); // instructing player
+    Graphics_flushBuffer(&g_sContext);
 
     while (1)    // Forever loop
     {
         // Check if any keys have been pressed on the 3x4 keypad
         currKey = getKey();
-        
+
         switch (state) {
 
             case WELCOME:
@@ -60,7 +71,7 @@ void main(void)
                 Graphics_flushBuffer(&g_sContext);
                 if (currKey == '*') {
                     state = STARTING;
-                } 
+                }
             break;
 
             case STARTING:
@@ -70,7 +81,15 @@ void main(void)
             break;
 
             case SEQUENCE:
-                sendSimon(sequence, currentLength);
+//                sendSimon(sequence, currentLength);
+                for (i = 0; i < currentLength; i++) {
+                        setLeds(sequence[i] - 0x30);
+                        BuzzerOn();
+                        swDelay2(2);
+                        BuzzerOff();
+                        setLeds(0);
+                }
+
                 state = INPUT;
                 currentIndex = 0;
 
@@ -78,7 +97,7 @@ void main(void)
 
             case INPUT:
                 printNum(currKey);
-                
+
                 if (currKey == '1' && sequence[currentIndex] == 1) {
                     currentIndex++;
                 } else if (currKey == '2' && sequence[currentIndex] == 2) {
@@ -92,9 +111,9 @@ void main(void)
                 }
                 if (currentLength - currentIndex == 1) {
                     state = SEQUENCE;
-                    currentLength++
+                    currentLength++;
                 }
-                
+
 
             break;
         }
@@ -103,22 +122,29 @@ void main(void)
 }
 
 void countDown(void) {
-    for (int i = 3; i > 0; i--) {
+    int i = 0;
+    unsigned char dispThree[3];
+    dispThree[0] = ' ';
+    dispThree[2] = ' ';
+
+    for (i = 3; i > 0; i--) {
+        dispThree[1] = i;
         Graphics_clearDisplay(&g_sContext); // Clear
-        Graphics_drawStringCentered(&g_sContext, i, AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
+        Graphics_drawStringCentered(&g_sContext, dispThree, AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        swDelay(2);
+        swDelay2(2);
     }
 }
 
 void printNum(char input) {
     unsigned char dispThree[3];
+    unsigned char dispSz = 0;
     dispThree[0] = ' ';
     dispThree[2] = ' ';
 
     if ((input >= '1') && (input <= '4')) {
         dispThree[1] = input;
-    } 
+    }
     if (input == '1') {
         Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 12, 55, OPAQUE_TEXT);
     } else if (input == '2') {
@@ -129,45 +155,45 @@ void printNum(char input) {
         Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 84, 55, OPAQUE_TEXT);
     }
     Graphics_flushBuffer(&g_sContext);
-    
-}
-
-int[] loadSequence(int[] sequence, int count) {
-    for (int i = 0; i < count; i++) {
-        int num = (rand() % (4)) + 1;
-        sequence[i] = num;
-    }
-}
-
-void sendSimon(int[] sequence, int length) {
-    for (int i = 0; i < length; i++) {
-        setLeds(sequence[i] - 0x30);
-        BuzzerOn();
-        swDelay(2);
-        BuzzerOff();
-        setLeds(0);
-    }
 
 }
 
+//void loadSequence(int& sequence, int count) {
+//    for (int i = 0; i < count; i++) {
+//        int num = (rand() % (4)) + 1;
+//        sequence[i] = num;
+//    }
+//}
 
-void swDelay(char numLoops)
+//void sendSimon(int& sequence, int length) {
+//    for (int i = 0; i < length; i++) {
+//        setLeds(sequence[i] - 0x30);
+//        BuzzerOn();
+//        swDelay(2);
+//        BuzzerOff();
+//        setLeds(0);
+//    }
+//
+//}
+
+
+void swDelay2(char numLoops)
 {
-	// This function is a software delay. It performs
-	// useless loops to waste a bit of time
-	//
-	// Input: numLoops = number of delay loops to execute
-	// Output: none
-	//
-	// smj, ECE2049, 25 Aug 2013
+    // This function is a software delay. It performs
+    // useless loops to waste a bit of time
+    //
+    // Input: numLoops = number of delay loops to execute
+    // Output: none
+    //
+    // smj, ECE2049, 25 Aug 2013
 
-	volatile unsigned int i,j;	// volatile to prevent removal in optimization
-			                    // by compiler. Functionally this is useless code
+    volatile unsigned int i,j;  // volatile to prevent removal in optimization
+                                // by compiler. Functionally this is useless code
 
-	for (j=0; j<numLoops; j++)
+    for (j=0; j<numLoops; j++)
     {
-    	i = 50000 ;					// SW Delay
-   	    while (i > 0)				// could also have used while (i)
-	       i--;
+        i = 50000 ;                 // SW Delay
+        while (i > 0)               // could also have used while (i)
+           i--;
     }
 }
