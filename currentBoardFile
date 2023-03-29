@@ -52,8 +52,8 @@ void main(void)
     // *** Intro Screen ***
     Graphics_clearDisplay(&g_sContext); // Clear the display
     Graphics_drawStringCentered(&g_sContext, "SIMON", AUTO_STRING_LENGTH, 48, 15, TRANSPARENT_TEXT);
-    //Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
-    //Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT);
+    Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT);
+    Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT);
 
     Graphics_flushBuffer(&g_sContext);
     dispThree[0] = ' ';
@@ -105,17 +105,17 @@ void main(void)
                    incPatternDisp(); // displaying pattern to user
                    Graphics_clearDisplay(&g_sContext); // clearing pattern numbers
                    Graphics_drawStringCentered(&g_sContext, "Repeat Pattern", AUTO_STRING_LENGTH, 48, 25, TRANSPARENT_TEXT); // instructing player
-                   Graphics_drawStringCentered(&g_sContext, "Press '#'", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT); // instructing player
-                   Graphics_drawStringCentered(&g_sContext, "When Done", AUTO_STRING_LENGTH, 48, 45, TRANSPARENT_TEXT); // instructing player
+                   //Graphics_drawStringCentered(&g_sContext, "Press '#'", AUTO_STRING_LENGTH, 48, 35, TRANSPARENT_TEXT); // instructing player
+                   //Graphics_drawStringCentered(&g_sContext, "When Done", AUTO_STRING_LENGTH, 48, 45, TRANSPARENT_TEXT); // instructing player
                    Graphics_flushBuffer(&g_sContext);
-                   swDelay(6);
+                   swDelay(3);
                    arrayIndexU++;
 
 
                }
                /*if (currKey == '#'){
                   setLeds(currKey - 0x30);
-               }*?
+               }*/
                if (currKey == '1'){
                    setLeds(currKey - 0x30);
                }
@@ -147,7 +147,7 @@ void main(void)
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 20, 55, OPAQUE_TEXT);
                        printf("Button 1 pressed\n");
                        userArray[arrayIndexU] = 1;
-                       printf("sequenceMax pressed 1 is: %d\n", sequenceMax);
+                       //printf("sequenceMax pressed 1 is: %d\n", sequenceMax);
                        printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
                        arrayIndexU++;
                        checkIfEqual();
@@ -156,7 +156,7 @@ void main(void)
                       Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 40, 55, OPAQUE_TEXT);
                       printf("Button 2 pressed\n");
                       userArray[arrayIndexU] = 2;
-                      printf("sequenceMax pressed 2 is: %d\n", sequenceMax);
+                      //printf("sequenceMax pressed 2 is: %d\n", sequenceMax);
                       printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
                       arrayIndexU++;
                       checkIfEqual();
@@ -165,7 +165,7 @@ void main(void)
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 60, 55, OPAQUE_TEXT);
                        printf("Button 3 pressed\n");
                        userArray[arrayIndexU] = 3;
-                       printf("sequenceMax pressed 3 is: %d\n", sequenceMax);
+                       //printf("sequenceMax pressed 3 is: %d\n", sequenceMax);
                        printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
                        arrayIndexU++;
                        checkIfEqual();
@@ -174,7 +174,7 @@ void main(void)
                        Graphics_drawStringCentered(&g_sContext, dispThree, dispSz, 80, 55, OPAQUE_TEXT);
                        printf("Button 4 pressed\n");
                        userArray[arrayIndexU] = 4;
-                       printf("sequenceMax pressed 4 is: %d\n", sequenceMax);
+                       //printf("sequenceMax pressed 4 is: %d\n", sequenceMax);
                        printf("userArray is %d and arrayIndexU is %d\n ", userArray[arrayIndexU], arrayIndexU);
                        arrayIndexU++;
                        checkIfEqual();
@@ -182,7 +182,7 @@ void main(void)
                    if (currKey == '0'){
                       clearingPatternUserArrays();
                       printf("Button 0 pressed\n");
-                      printf("sequenceMax pressed 0 is: %d\n", sequenceMax);
+                      //printf("sequenceMax pressed 0 is: %d\n", sequenceMax);
                       Graphics_drawStringCentered(&g_sContext, "YOU LOSE", AUTO_STRING_LENGTH, 48, 50, TRANSPARENT_TEXT); // restarting game
                       Graphics_drawStringCentered(&g_sContext, "Press '9'", AUTO_STRING_LENGTH, 48, 60, TRANSPARENT_TEXT);
                       Graphics_flushBuffer(&g_sContext);
@@ -193,7 +193,7 @@ void main(void)
                    }
                    if (currKey == '9'){
                       printf("Button 9 pressed\n");
-                      printf("sequenceMax pressed 9 is: %d\n", sequenceMax);
+                      //printf("sequenceMax pressed 9 is: %d\n", sequenceMax);
                       Graphics_drawStringCentered(&g_sContext, "Press *", AUTO_STRING_LENGTH, 48, 50, TRANSPARENT_TEXT); // restarting game
                       Graphics_drawStringCentered(&g_sContext, "to begin", AUTO_STRING_LENGTH, 48, 60, TRANSPARENT_TEXT);
                       Graphics_flushBuffer(&g_sContext);
