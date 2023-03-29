@@ -16,7 +16,7 @@ int randomNum; // prep for random number generator
 int cChecker = 2;; // counter
 int arrayIndex = 0; // position in any array
 int arrayIndexP = 0; // position in pattern array
-int arrayIndexU = -1; // position in user array
+int arrayIndexU = 0; // position in user array
 int sequenceMax = 1; // max game length
 int patternArray[] = {}; // random led pattern
 int userArray[] = {}; //saves user press button data
@@ -109,7 +109,7 @@ void main(void)
                    //Graphics_drawStringCentered(&g_sContext, "When Done", AUTO_STRING_LENGTH, 48, 45, TRANSPARENT_TEXT); // instructing player
                    Graphics_flushBuffer(&g_sContext);
                    swDelay(3);
-                   arrayIndexU++;
+                   //arrayIndexU++;
 
 
                }
